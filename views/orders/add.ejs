@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Order</title>
+</head>
+<body>
+    <h1>Add New Order</h1>
+    <form action="/orders" method="POST">
+        <label for="user">User:</label>
+        <select name="user" id="user">
+            <% users.forEach(user => { %>
+                <option value="<%= user._id %>"><%= user.name %></option>
+            <% }) %>
+        </select>
+
+        <h3>Products</h3>
+        <% products.forEach(product => { %>
+            <div>
+                <input type="checkbox" name="products" value="<%= product._id %>"> <%= product.name %>
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity_<%= product._id %>" min="1">
+            </div>
+        <% }) %>
+
+        <button type="submit">Create Order</button>
+    </form>
+    <a href="/orders/list">Back to Order List</a>
+</body>
+</html>

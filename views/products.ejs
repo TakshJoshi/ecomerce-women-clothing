@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <a href="/products/add">Add New Product</a>
+
+    <% if (products.length > 0) { %>
+        <% products.forEach(product => { %>
+            <div class="product-item">
+                <h2><%= product.name %></h2>
+                <p>Price: $<%= product.price %></p>
+
+                <% if (product.category) { %>
+                    <p>Category: <%= product.category.name %></p>
+                <% } else { %>
+                    <p>Category: None</p>
+                <% } %>
+
+                <p>Description: <%= product.description %></p>
+                <a href="/products/edit/<%= product._id %>">Edit</a>
+                <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No products available.</p>
+    <% } %>
+</body>
+</html>

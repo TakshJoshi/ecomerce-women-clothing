@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Order</title>
+</head>
+<body>
+    <h1>Edit Order</h1>
+    <form action="/orders/<%= order._id %>?_method=PUT" method="POST">
+        <label for="user">User:</label>
+        <select name="user" id="user">
+            <% users.forEach(user => { %>
+                <option value="<%= user._id %>" <%= order.user._id.equals(user._id) ? 'selected' : '' %>><%= user.name %></option>
+            <% }) %>
+        </select>
+
+        <h3>Products</h3>
+        <% products.forEach(product => { %>
+            <div>
+                <input type="checkbox" name="products" value="<%= product._id %>" <%= order.items.some(item => item.product._id.equals(product._id)) ? 'checked' : '' %>> <%= product.name %>
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity_<%= product._id %>" min="1" value="<%= order.items.find(item => item.product._id.equals(product._id))?.quantity || 1 %>">
+            </div>
+        <% }) %>
+
+        <button type="submit">Update Order</button>
+    </form>
+    <a href="/orders/list">Back to Order List</a>
+</body>
+</html>

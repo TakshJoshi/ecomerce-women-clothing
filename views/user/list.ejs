@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <h1>User List</h1>
+    <a href="/users/add">Add New User</a>
+    <% users.forEach(user => { %>
+        <div>
+            <h2><%= user.name %></h2>
+            <p>Email: <%= user.email %></p>
+            <a href="/users/edit/<%= user._id %>">Edit</a>
+            <form action="/users/<%= user._id %>?_method=DELETE" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    <% }) %>
+</body>
+</html>
